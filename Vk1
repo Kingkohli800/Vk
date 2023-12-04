@@ -235,5 +235,769 @@ plt.scatter(x + [new_x], y + [new_y], c=classes + [prediction[0]]) plt.text(x=ne
  
 Output: 
  
-  
+
+  
+ 
+  
+ Practical1: Write a python program to Prepare Scatter Scatter Plot using Iris Dataset.
+
+Code:
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+# Load the Iris dataset from Seaborn
+iris = sns.load_dataset("iris")
+
+# Create a scatter plot
+sns.scatterplot(x="sepal_length", y="sepal width", data=iris, hue="species")
+
+# Add labels and a title
+
+plt.xlabel("Sepal Length (cm)’)
+
+plt.ylabel("Sepal Width (cm)")
+
+plt.title('Scatter Plot of Sepal Length vs. Sepal Width")
+
+# Show the plot
+plt.show()
+
+Output:
+Practical2: Write a python program to find all null values in a given dataset and remove them.
+
+Code:
+import pandas as pd
+
+# Create a sample dataset with null values
+
+data = {
+'Name'": [Deepak’, 'Anchal', 'omkar’, None, 'vikram'],
+‘Age’: [25, None, 30, 22, 28],
+'City": [None, 'delhi', 'mangalore’, ‘pune’, ‘chennai’ }
+
+# Create a DataFrame from the sample data
+df = pd.DataFrame(data)
+
+# Display the original DataFrame
+print("Original DataFrame:")
+
+print(df)
+
+# Find and count null values in the DataFrame
+null_values = df.isnull().sum()
+
+print("\nNull Values in the DataFrame:")
+print(null_values)
+
+# Remove rows with null values
+df cleaned = df.dropna()
+
+# Display the DataFrame after removing null values
+print("\nDataFrame after removing null values:")
+print(df_cleaned)
+
+Output:
+
+Original DataFrame:
+Name Age City
+
+0 Deepak 25.0 None
+
+1 Anchal NaN delhi
+
+2 omkar 30.0 mangalore
+
+3 None 22.0 pune
+
+4 vikram 28.0 chennai
+
+Null Values in the DataFrame:
+Name 1
+Age 1
+City 1
+dtype: int64
+
+DataFrame after removing null values:
+Name Age City
+
+2 omkar 30.0 mangalore
+
+4 vikram 28.0 chennai
+Practical3: Write a python program the Categorical values in numerc format for a given dataset.
+
+Code:
+import pandas as pd
+
+# Create a sample dataset with a categorical column
+data = {
+
+'Category": [A 'B', ‘Al, 'C', 'B', 'C'
+}
+
+# Create a DataFrame from the sample data
+df = pd.DataFrame(data)
+
+# Perform One-Hot Encoding using pandas
+df_encoded = pd.get_dummies(df, columns=['Category'], prefix=['Category'])
+
+# Display the DataFrame with one-hot encoded columns
+print(df_encoded)
+
+Output:
+Category_A Category B Category C
+1 0 0
+
+ah WON-2O0
+O00 O20
+oO 200
+OO 200
+Practical4: Write a python program to implement simple Linear Regression for predicting house
+price.
+
+Code:
+
+import pandas as pd
+
+import numpy as np
+
+from sklearn.datasets import fetch_california_housing
+
+from sklearn.model_selection import train_test_split
+
+from sklearn.linear_model import LinearRegression
+
+from sklearn.metrics import mean_squared_error, r2_score
+import matplotlib.pyplot as plt
+
+# Load the California Housing Dataset
+california_housing = fetch_california_housing()
+
+# Create a DataFrame from the dataset
+data = pd.DataFrame(california_housing.data, columns=california_housing.feature_names)
+data['target'] = california_housing.target # Add target (house prices) to the DataFrame
+
+# Use a specific feature (e.g., 'MedInc') as the independent variable
+X = data[[MedInc].values # Independent variable (median income)
+y = data['target'].values # Dependent variable (house price)
+
+# Split the dataset into training and testing sets (80% train, 20% test)
+X_ train, X_test, y_ train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Create a Linear Regression model
+model = LinearRegression()
+
+# Fit the model on the training data
+model.fit(X_train, y_train)
+
+# Make predictions on the test data
+y_pred = model.predict(X_test)
+
+# Calculate model performance metrics
+mse = mean_squared_error(y_test, y pred)
+
+r2 = r2_score(y_test, y pred)
+
+print(f"’Mean Squared Error: {mse:.2f}")
+print(f"'R-squared (Coefficient of determination): {r2:.2f}")
+
+# Plot the regression line
+plt.scatter(X_test, y_test, color="blue’, label='Actual Data’)
+plt.plot(X_test, y_pred, color="red’, linewidth=2, label="Regression Line")
+plt.xlabel('Median Income (MedInc)")
+
+plt.ylabel("House Price")
+
+plt.legend()
+
+plt.show()
+
+# Predict the price for a new input (e.g., median income of 5.0)
+new_median_income = np.array([[5.0]])
+
+predicted_price = model.predict(new_median_income)
+
+print(f"Predicted House Price for Median Income of 5.0: ${predicted_price[0]:.2f}")
+
+Output:
+Practical5: Write a python program to implement multiple Linear Regression for a given dataset.
+
+Code:
+
+import numpy as np
+
+import matplotlib.pyplot as plt
+
+from sklearn.linear_model import LinearRegression
+
+# Generate some sample data
+
+np.random.seed(0)
+
+num_points = 50
+
+X = np.linspace(0, 10, num_points)
+
+y1=2*X+ 1 + np.random.normal(0, 2, num_points)
+y2 = 3 * X + 2 + np.random.normal(0, 2, num_points)
+
+# Reshape X for matrix multiplication
+X = X.reshape(-1, 1)
+
+# Perform linear regression for the first set of data
+model1 = LinearRegression()
+
+model fit(X, y1)
+
+slope1 = model1.coef [0]
+
+intercept! = model1.intercept_
+
+y1_pred = model1.predict(X)
+
+# Perform linear regression for the second set of data
+model2 = LinearRegression()
+
+model2 fit(X, y2)
+
+slope2 = model2.coef [0]
+
+intercept2 = model2.intercept_
+
+y2_pred = model2.predict(X)
+
+# Plot the original data and the fitted lines
+
+plt.figure(figsize=(10, 6))
+
+plt.scatter(X, y1, label="Data 1', color="blue")
+
+plt.plot(X, y1_pred, label="Fitted Line 1', color="blue’, linestyle="dashed')
+plt.scatter(X, y2, label='"Data 2', color="orange’)
+
+plt.plot(X, y2_pred, label="Fitted Line 2', color="orange’, linestyle="dashed")
+plt.xlabel('X")
+
+plt.ylabel('y")
+
+plt.title('Multiple Linear Regression")
+
+plt.legend()
+
+plt.grid()
+
+plt.show()
+print("Model 1:")
+print(f'Slope (Coefficient): {slope1}"}
+print(f'Intercept: {intercept1}")
+
+print(\nModel 2:")
+print(f"Slope (Coefficient): {slope2}")
+print(f"Intercept: {intercept2}")
+
+Output:
+Practical6: Write a python program to implement Polynomial Regression for a given dataset.
+
+Code:
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Generate some random data
+
+np.random.seed(0)
+
+X = np.sort(5 * np.random.rand(80, 1), axis=0)
+
+y = np.sin(X).ravel() + np.random.normal(0, 0.1, X.shape[0])
+
+# Fit a polynomial regression model
+
+degree = 3 # Change this to the degree of polynomial you want
+X_poly = np.power(X, np.arange(0, degree + 1))
+
+coefficients = np.linalg.Istsq(X_poly, y, rcond=None)[0]
+
+# Generate predictions using the model
+
+X_test = np.linspace(0, 5, 100).reshape(-1, 1)
+X_test_poly = np.power(X_test, np.arange(0, degree + 1))
+y_pred = np.dot(X_test_poly, coefficients)
+
+# Plot the data and regression curve
+
+plt.scatter(X, y, label='"Data")
+
+plt.plot(X_test, y_pred, color="r, label='"Polynomial Regression")
+plt.xlabel("X")
+
+plt.ylabel('y")
+
+plt.title(FPolynomial Regression (Degree {degree})’)
+plt.legend()
+
+plt.show()
+
+Output:
+Practical7: Write a python program to implement Naive Bayes.
+
+Code:
+
+import numpy as np
+
+import matplotlib.pyplot as plt
+
+from sklearn.model_selection import train_test_split
+
+from sklearn.datasets import make _classification
+
+from sklearn.naive_bayes import GaussianNB
+
+from sklearn.metrics import accuracy_score, confusion_matrix
+
+# Generate a toy dataset
+X, y = make_classification(n_samples=300, n_features=2, n_informative=2,
+n_redundant=0, n_clusters_per_class=1)
+
+# Split the dataset into training and testing sets
+X train, X_test, y_train, y_test = train_test_split(X, vy, test_size=0.3, random_state=42)
+
+# Create a Naive Bayes classifier
+nb_classifier = GaussianNB()
+
+# Train the classifier
+nb_classifier.fit(X_train, y_train)
+
+# Predict on the test set
+y_pred = nb_classifier.predict(X_test)
+
+# Calculate accuracy
+accuracy = accuracy_score(y_test, y_pred)
+print(f"Accuracy: {accuracy:.2f}")
+
+# Create a confusion matrix
+conf_matrix = confusion_matrix(y_test, y_pred)
+
+# Plot confusion matrix
+
+plt.figure(figsize=(8, 6))
+
+plt.imshow(conf_matrix, interpolation='nearest', cmap=plt.cm.Blues)
+plt.title("Confusion Matrix")
+
+plt.colorbar()
+
+class_names = np.unique(y_test)
+tick_marks = np.arange(len(class_names))
+plt.xticks(tick_marks, class_names)
+plt.yticks(tick_marks, class_names)
+plt.xlabel('Predicted Label’)
+plt.ylabel("True Label’)
+plt.show()
+
+Output:
+Practical8: Write a python program to implement Decision Tree whether or not to play tennis.
+
+Code:
+
+import pandas as pd
+
+from sklearn.tree import DecisionTreeClassifier
+from sklearn import preprocessing
+
+from sklearn.tree import export_graphviz
+import graphviz
+
+# Sample data
+data = {
+
+‘Outlook’: ['Sunny’, ‘Sunny’, 'Overcast’, ‘Rain’, 'Rain’, ‘Rain’, 'Overcast’, ‘Sunny’, 'Sunny', 'Rain’,
+'Sunny', ‘Overcast’, 'Overcast', 'Rain'],
+
+"Temperature": ['Hot', 'Hot', 'Hot', 'Mild', ‘Cool’, ‘Cool’, 'Cool', 'Mild', 'Cool’, 'Mild', 'Mild', ‘Mild’,
+'Hot', "Mild",
+
+"Humidity: ['High', 'High', 'High', High’, 'Normal', 'Normal', ‘Normal’, 'High', ‘Normal’, ‘Normal’,
+‘Normal, 'High', ‘Normal’, 'High'],
+
+'Wind': ['Weak', 'Strong', 'Weak', 'Weak', 'Weak', ‘Strong’, ‘Strong’, 'Weak', 'Weak', 'Weak',
+'Strong’, ‘Strong’, 'Weak', 'Strong],
+
+'PlayTennis'": ['No', 'No', 'Yes', 'Yes', 'Yes', 'No', 'Yes', ‘No, 'Yes', 'Yes', 'Yes', 'Yes', 'Yes', 'No']
+
+}
+
+# Create a DataFrame
+df = pd.DataFrame(data)
+
+# Encode categorical data
+
+le = preprocessing.LabelEncoder()
+
+dff'Outlook = le.fit_transform(df['Outlook’])
+
+df[ Temperature'] = le.fit_transform(df[' Temperature)
+dff'Humidity'] = le.fit_transform(dfl'Humidity])
+dff'Wind" = le.fit_transform(dff'Wind'])
+df'PlayTennis'] = le.fit_transform(dff'Play Tennis")
+
+# Features and target variable
+X = dff['Outlook’, Temperature’, Humidity’, 'Wind"]
+y = dff'PlayTennis"]
+
+# Create a Decision Tree classifier
+clf = DecisionTreeClassifier(criterion="entropy")
+clf.fit(X, y)
+
+# Visualize the Decision Tree
+dot_data = export_graphviz(
+cif,
+
+out_file=None,
+
+feature_names=['Outlook’, Temperature’, Humidity’, ‘Wind,
+class_names=['No', 'Yes'],
+
+filled=True,
+
+rounded=True,
+
+special_characters=True
+
+)
+
+graph = graphviz.Source(dot_data)
+graph.render(‘tennis_decision_tree', view=True)
+
+Output:
+Practical9: Write a python program to implement Linear SVM.
+
+Code:
+
+import numpy as np
+
+import matplotlib.pyplot as plt
+
+from sklearn import datasets
+
+from sklearn.model_selection import train_test_split
+from sklearn.svm import SVC
+
+from sklearn.metrics import accuracy_score
+
+# Load the dataset
+
+iris = datasets.load_iris()
+
+X = iris.data[:, :2] # We'll use only the first two features for visualization
+y = iris.target
+
+# Split the dataset into training and testing sets
+X train, X_test, y_ train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
+
+# Create a SVM classifier with a linear kernel
+svm_classifier = SVC(kernel="linear')
+
+# Train the SVM classifier
+svm_classifier.fit(X_train, y_train)
+
+# Make predictions on the test set
+y_pred = svm_classifier.predict(X_test)
+
+# Calculate the accuracy
+accuracy = accuracy_score(y_test, y_pred)
+print("Accuracy:", accuracy)
+
+# Visualize the decision boundary
+def plot_decision_boundary(model, X, y):
+h=0.02 # step size in the mesh
+X_min, x_max = X[:, 0].min() - 1, X[:, 0].max() + 1
+y_min, y_max = X[:, 11.min() - 1, X[:, 1].max() + 1
+XX, yy = np.meshgrid(np.arange(x_min, x_max, h), np.arange(y_min, y_max, h})
+Z = model.predict(np.c_[xx.ravel(), yy.ravel()])
+Z = Z.reshape(xx.shape)
+
+plt.contourf(xx, yy, Z, cmap=plt.cm.Paired, alpha=0.8)
+plt.scatter(X[:, 0], X[:, 1], c=y, cmap=plt.cm.Paired)
+plt.xlabel(*Feature 1")
+plt.ylabel('Feature 2')
+plt.title('SVM Decision Boundary with Linear Kernel’)
+plt.show()
+
+# Plot the decision boundary
+plot_decision_boundary(svm_classifier, X_train, y_train)
+
+Output:
+Practical10: Write a python program to find Decision Boundary by using neural network with 10
+hidden units on two moon sets.
+
+Code:import numpy as np
+
+from sklearn.datasets import make_moons
+
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from keras.models import Sequential
+
+from keras.layers import Dense
+
+import matplotlib.pyplot as pit
+
+# Generate the two-moon dataset
+X, y = make_moons(n_samples=1000, noise=0.2, random_state=42)
+
+# Split the dataset into training and testing sets
+X train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
+
+# Standardize the features
+
+scaler = StandardScaler()
+
+X_train = scalerfit_transform(X_train)
+X_test = scaler.transform(X_test)
+
+# Build a neural network with ten hidden units
+
+model = Sequential()
+
+model.add(Dense(10, input_dim=2, activation="relu'))
+model.add(Dense(1, activation="sigmoid’))
+
+# Compile the model
+model.compile(loss='binary_crossentropy', optimizer="adam', metrics=['accuracy'])
+
+# Train the model
+history = model .fit(X_train, y_train, epochs=100, batch_size=32, validation_data=(X_test,
+y_test), verbose=0)
+
+# Plot decision boundary
+
+xx, yy = np.meshgrid{np.linspace(X[:, 0].min() - 1, X[:, 0].max() + 1, 100),
+np.linspace(X[:, 1].min() - 1, X[:, 1].max() + 1, 100))
+
+Z = model.predict(np.c_[xx.ravel(), yy.ravel()])
+
+Z = Z.reshape(xx.shape)
+
+plt.contourf(xx, yy, Z, cmap=plt.cm.RdBu, alpha=0.8)
+plt.scatter(X_test[:, 0], X_test[:, 1], c=y_test, cmap=plt.cm.RdBu_r, marker="0")
+plt.xlabel('Feature 1')
+plt.ylabel('Feature 2')
+plt.title('Decision Boundary with Neural Network’)
+plt.show()
+
+Output:
+Practical11: Write a python program to transform data with Principal Component Analysis(PCA).
+
+Code:
+
+import numpy as np
+
+import matplotlib.pyplot as plt
+
+from sklearn.datasets import load_iris
+from sklearn.decomposition import PCA
+
+data = load_iris()
+#print(data)
+
+X = data.data
+#print(X)
+
+y = data.target
+#print(y)
+
+from sklearn.preprocessing import StandardScaler
+
+scaler = StandardScaler()
+X_scaled = scaler.fit_transform(X)
+
+n_components = 2 # Number of components to retain
+
+pca = PCA(n_components=n_components)
+X_pca = pca.fit_transform(X_scaled)
+
+#print(pca)
+#print(X_pca)
+
+plt.figure(figsize=(8, 6))
+colors = ['red', ‘green’, ‘blue
+w=2
+
+for color, i, target_name in zip(colors, [0, 1, 2], data.target_names):
+plt.scatter(X_pcaly == i, 0], X_pcaly ==, 1], color=color, alpha=0.8, lw=Iw,
+label=target_name)
+
+plt.legend(loc="best', shadow=False, scatterpoints=1)
+plt.title('PCA of Iris dataset’)
+plt.show()
+
+Output:
+Practical12; Write a python program to implement K-nearest Neighbours ML algorithm to build
+prediction model(Forge Dataset).
+
+Code:
+
+# Import necessary libraries
+
+import numpy as np
+
+import matplotlib.pyplot as pit
+
+from sklearn.datasets import make_blobs
+
+from sklearn.model_selection import train_test_split
+from sklearn.neighbors import KNeighborsClassifier
+
+# Create the "forge" dataset
+X, y = make_blobs(n_samples=100, centers=2, random_state=0, cluster_std=1.0)
+
+# Split the data into training and testing sets
+X train, X_test, y_train, y_test = train_test_split(X, y, random_state=0)
+
+# Create a KNN classifier with k=3 (you can adjust k as needed)
+knn = KNeighborsClassifier(n_neighbors=3)
+
+# Fit the classifier to the training data
+knn.fit(X_train, y_train)
+
+# Make predictions on the test data
+y_pred = knn.predict(X_test)
+
+# Calculate and print the accuracy of the model
+accuracy = np.mean{y_pred == y_test)
+print(f"Accuracy of KNN classifier: {accuracy * 100:.2f}%")
+
+# Plot the decision boundary of the KNN classifier
+def plot_decision_boundary(X, y, classifier, ax):
+h=0.02 # Step size in the mesh
+X_min, x_max = X[:, 0].min() - 1, X[:, 0].max() + 1
+y_min, y_max = X[:, 1].min() - 1, X[:, 1].max() + 1
+XX, yy = np.meshgrid(np.arange(x_min, x_max, h), np.arange(y_min, y_max, h})
+Z = classifier.predict(np.c_[xx.ravel(), yy.ravel()])
+Z = Z.reshape(xx.shape)
+ax.contourf(xx, yy, Z, alpha=0.3)
+ax.scatter(X[:, 0], X[:, 1], c=y, s=50, cmap=plt.cm.Paired)
+
+# Plot the decision boundary of the trained KNN classifier
+fig, ax = plt.subplots()
+plot_decision_boundary(X_train, y_train, knn, ax)
+ax.set_title("KNN Decision Boundary")
+plt.show()
+
+Output:
+Practical13: Write a python program to implement K-means Algorithm on a synthetic dataset.
+
+Code:
+
+#import libraries
+
+import numpy as np
+
+import matplotlib.pyplot as pit
+
+from sklearn.cluster import KMeans
+
+# Generate random data
+np.random.seed(0)
+X = np.random.rand(100, 2)
+
+# Choose the number of clusters
+num_clusters = 3
+
+# Initialize K-means model
+
+kmeans = KMeans(n_clusters=num_ clusters)
+
+# Fit the model to the data
+
+kmeans.fit(X)
+
+# Get the cluster assignments for each data point
+labels = kmeans.labels_
+
+# Get the coordinates of the cluster centers
+centers = kmeans.cluster_centers_
+
+# Plot the data points with cluster colors
+
+plt.scatter(X[:, 0], X[:, 1], c=labels, cmap='viridis')
+
+# Plot the cluster centers
+
+plt.scatter(centers[:, 0], centers[:, 1], c="red', marker=""", s=200)
+plt.xlabel('Feature 1')
+
+plt.ylabel('Feature 2")
+
+plt.title('K-means Clustering")
+
+plt.show()
+
+Output:
+
+
+Practical14: Write a python program to implement Agglomerative Clustering on a synthetic
+dataset.
+
+Code:
+
+import numpy as np
+
+import matplotlib.pyplot as pit
+
+from sklearn.datasets import make_blobs
+
+from sklearn.cluster import AgglomerativeClustering
+
+# Generate synthetic data
+data, labels = make_blobs(n_samples=50, centers=3, random_state=42)
+
+# Perform agglomerative clustering
+agg_cluster = AgglomerativeClustering(n_clusters=3) # You can specify other parameters
+cluster_labels = agg_cluster.fit_predict(data)
+
+# Visualize the clustered data
+
+plt.scatter(data[:, 0], data[:, 1], c=cluster_labels, cmap="rainbow')
+plt.title('Agglomerative Clustering")
+
+plt.xlabel('Feature 1')
+
+plt.ylabel('Feature 2')
+
+plt.show()
+
+Output:
+
+ 
+ 
+  
+ 
+ 
+  
+ 
+ 
+ 
+ 
+  
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+
  
